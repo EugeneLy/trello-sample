@@ -1,14 +1,16 @@
 const mongoose = require('mongoose');
 
+const { db } = require('../../configs/db.json');
+
 require('../models/Task.js');
 
 const Task = mongoose.model('Task');
 
 exports.setConnection = () => {
-    mongoose.connect(`mongodb://gc:123456@ds119988.mlab.com:19988/gcdb`);
+    mongoose.connect(`mongodb://${db.user}:${db.pass}@ds119988.mlab.com:19988/${db.name}`);
 };
 
-exports.allTasks = () => {
+exports.getTasks = () => {
     return Task.find();
 };
 
