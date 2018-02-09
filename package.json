@@ -1,0 +1,18 @@
+{
+  "name": "trellosample",
+  "version": "1.0.0",
+  "description": "Task manager",
+  "main": "app.js",
+  "scripts": {
+    "start": "node ./server/app.js"
+  },
+  "author": "noname",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2",
+    "mongoose": "^5.0.4"
+  },
+  "devDependencies": {
+    "bable-loader": "0.0.1-security"
+  }
+}
