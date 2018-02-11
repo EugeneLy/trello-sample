@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 
 module.exports = {
-    entry: "./client/main.js",
+    entry: "./client/main.jsx",
     output: {
         path: '/public/build/',
         publicPath: "build/",
@@ -10,7 +10,7 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /\.js$/,
+                test: /\.jsx?$/,
                 loader: "babel-loader",
                 exclude: [/node_modules/, /public/],
                 query:
