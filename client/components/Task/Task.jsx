@@ -3,16 +3,25 @@ import React, { Component } from 'react';
 import './Task.scss';
 
 class Task extends Component {
+    constructor(props) {
+        super(props);
+        this.task = this.props.curentTask;
+        this.handleRemoveTask = this.handleRemoveTask.bind(this);
+    }
+
+    handleRemoveTask(taskId) {
+        this.props.onTaskDelete(taskId);
+    }
+
     render() {
         return (
             <span className="list-group-item list-group-item-action">
-                <div onClick={this.props.onRemoveTask}>X</div>
-                <div className="d-flex w-100 justify-content-between">
+                <div className="d-flex w-100 title">
                     <h5 className="mb-1">{this.props.title}</h5>
-                    <small>{this.props.dueDate}</small>
+                    <button className="close" onClick={this.handleRemoveTask.bind(null, this.task)}>&times;</button>
                 </div>
-                <p className="mb-1">{this.props.description}</p>
-                <small>Donec id elit non mi porta.</small>
+                <div className="mb-1  w-100 ">{this.props.description}</div>
+                <small>{this.props.dueDate}</small>
             </span>
         )
     }

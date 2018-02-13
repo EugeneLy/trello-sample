@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 
 const TaskSchema = new Schema({
     title: {type: String},
+    boardId: {type: String},
     description: {type: String},
     dueDate: {type: String},
 });

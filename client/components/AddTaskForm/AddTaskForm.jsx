@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-
-import TasksActions from '../../actions/TasksActions';
 
 class AddForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
             title: '',
+            boardId: '',
             description: '',
             dueDate: ''
         }
@@ -28,19 +26,18 @@ class AddForm extends Component {
     handleTaskAdd() {
         const newTask = {
             title: this.state.title,
+            boardId: this.props.boardId,
             description: this.state.description,
             dueDate: this.state.dueDate
         };
 
-        TasksActions.createTask(newTask);
-
         console.log(newTask);
-        this.props.onAddTask(newTask);
+        this.props.onTaskAdded(newTask);
         this.setState({ title: '', description: '', dueDate: ''});
-
     }
 
     render() {
+        console.log(this.props.boardId);
         return (
             <div className='addTaskForm'>
 
@@ -77,6 +74,7 @@ class AddForm extends Component {
                         value='Add task'
                         className="btn btn-info w-100"
                         onClick={this.handleTaskAdd.bind(this)}
+
                     />
                 </div>
             </div>
@@ -84,11 +82,4 @@ class AddForm extends Component {
     }
 }
 
-export default connect(
-    null,
-    dispatch => ({
-        onAddTask:(taskObj) => {
-            dispatch({type: 'ADD_TASK', payload: taskObj})
-        }
-    })
-)(AddForm);
+export default AddForm;

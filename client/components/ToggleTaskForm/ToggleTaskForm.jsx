@@ -6,7 +6,6 @@ import AddTaskForm from '../AddTaskForm/AddTaskForm.jsx';
 class ToggleTaskForm extends Component {
     constructor(props) {
         super(props);
-
         this.state={isOpened: false};
     }
 
@@ -19,7 +18,7 @@ class ToggleTaskForm extends Component {
         let btnText;
 
         if(this.state.isOpened){
-            taskForm = <AddTaskForm />;
+            taskForm = <AddTaskForm boardId={this.props.boardId} onTaskAdded={this.props.onTaskAdded.bind(this)} />;
             btnText = 'Close form';
         }
 

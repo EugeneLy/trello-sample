@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-
 
 class AddBoardForm extends Component {
     constructor(props) {
@@ -16,10 +14,10 @@ class AddBoardForm extends Component {
     handleBoardAdd() {
         const newBoard = {
             title: this.state.title
-        }
+        };
 
         console.log(newBoard);
-        this.props.onAddBoard(newBoard);
+        this.props.onBoardAdded(newBoard);
         this.setState({ title: ''});
     }
 
@@ -36,6 +34,7 @@ class AddBoardForm extends Component {
                 <input type="text"
                        placeholder="Board title"
                        className="form-control"
+                       value={this.state.title}
                        onChange={this.handleTitleChange.bind(this)}
                 />
                 </div>
@@ -45,11 +44,4 @@ class AddBoardForm extends Component {
     }
 }
 
-export default connect(
-    null,
-    dispatch => ({
-        onAddBoard: (boardObj) => {
-            dispatch({type: 'ADD_BOARD', payload: boardObj})
-        }
-    })
-)(AddBoardForm);
+export default AddBoardForm;
