@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import TasksActions from '../../actions/TasksActions';
 
 class AddForm extends Component {
     constructor(props) {
@@ -29,7 +30,9 @@ class AddForm extends Component {
             title: this.state.title,
             description: this.state.description,
             dueDate: this.state.dueDate
-        }
+        };
+
+        TasksActions.createTask(newTask);
 
         console.log(newTask);
         this.props.onAddTask(newTask);
@@ -78,7 +81,6 @@ class AddForm extends Component {
                 </div>
             </div>
         )
-
     }
 }
 

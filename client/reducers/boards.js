@@ -7,7 +7,7 @@ let initialState = [
         id: 243,
         title: 'In progres'
     }
-]
+];
 
 export default function boards(state = initialState, action) {
     if(action.type === 'ADD_BOARD') {

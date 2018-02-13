@@ -19,12 +19,12 @@ class ToggleTaskForm extends Component {
         let btnText;
 
         if(this.state.isOpened){
-            taskForm = <AddTaskForm />
-            btnText = 'Close form'
+            taskForm = <AddTaskForm />;
+            btnText = 'Close form';
         }
 
         if(!this.state.isOpened){
-            btnText = 'Add task'
+            btnText = 'Add task';
         }
 
         return (

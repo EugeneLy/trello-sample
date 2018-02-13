@@ -12,6 +12,7 @@ class App extends Component {
             <div className="content">
                 <Header />
                 <Board
+                    onTaskAdded={this.handleTaskAdd}
                     tasks={this.props.tasks}
                     boards={this.props.boards}
                 />

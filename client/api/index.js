@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const { apiPrefix } = require('../configs/server.json');
+const { apiPrefix } = require('../../configs/server.json');
 
 export default {
     getTasks() {
@@ -11,7 +11,7 @@ export default {
         return axios.post(`${apiPrefix}/tasks`, data);
     },
 
-    getTasks(taskId) {
-        return axios.delete(`${apiPrefix}/tasks`, taskId);
+    removeTasks(taskId) {
+        return axios.delete(`${apiPrefix}/tasks/${taskId}`);
     }
 }

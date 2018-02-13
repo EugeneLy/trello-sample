@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const TaskSchema = new Schema({
     title: {type: String},
     description: {type: String},
-    dueDate: {type: Number},
+    dueDate: {type: String},
 });
 
 module.exports = mongoose.model('Task', TaskSchema);

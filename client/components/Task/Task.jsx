@@ -6,6 +6,7 @@ class Task extends Component {
     render() {
         return (
             <span className="list-group-item list-group-item-action">
+                <div onClick={this.props.onRemoveTask}>X</div>
                 <div className="d-flex w-100 justify-content-between">
                     <h5 className="mb-1">{this.props.title}</h5>
                     <small>{this.props.dueDate}</small>
