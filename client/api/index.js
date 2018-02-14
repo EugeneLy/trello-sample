@@ -8,8 +8,12 @@ export default {
         return axios.get(`${apiPrefix}/tasks`);
     },
 
-    createTask(data) {
+    editTask(data) {
         console.log(data);
+        return axios.put(`${apiPrefix}/task/edit`, data);
+    },
+
+    createTask(data) {
         return axios.post(`${apiPrefix}/tasks`, data);
     },
 

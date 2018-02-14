@@ -1,29 +1,52 @@
 import React, { Component } from 'react';
 
+import EditTaskForm from '../EditTaskForm/EditTaskForm.jsx';
+
 import './Task.scss';
 
 class Task extends Component {
     constructor(props) {
         super(props);
-        this.task = this.props.curentTask;
+        this.state={isEditable: false};
+
         this.handleRemoveTask = this.handleRemoveTask.bind(this);
     }
 
-    handleRemoveTask(taskId) {
-        this.props.onTaskDelete(taskId);
+    handleRemoveTask(task) {
+        this.props.onTaskDelete(task);
+    }
+
+    toggleMode() {
+        this.setState({isEditable: !this.state.isEditable})
     }
 
     render() {
-        return (
-            <span className="list-group-item list-group-item-action">
-                <div className="d-flex w-100 title">
-                    <h5 className="mb-1">{this.props.title}</h5>
-                    <button className="close" onClick={this.handleRemoveTask.bind(null, this.task)}>&times;</button>
-                </div>
-                <div className="mb-1  w-100 ">{this.props.description}</div>
-                <small>{this.props.dueDate}</small>
-            </span>
-        )
+        if(this.state.isEditable){
+            return (
+                <EditTaskForm
+                    task={this.props.task}
+                    toggleMode={this.toggleMode.bind(this)}
+                    onTaskEdit={this.props.onTaskEdit}
+                />
+            )
+        } else {
+             return(
+                 <div className="list-group-item list-group-item-action">
+                    <div className="d-flex w-100 title">
+                        <h5 className="mb-1">{this.props.task.title}</h5>
+                        <div className="edit" onClick={this.toggleMode.bind(this)}>
+                            <i className="fas fa-edit"></i>
+                        </div>
+                        <div className="delete" onClick={this.handleRemoveTask.bind(null, this.props.task)}>
+                            <i className="far fa-trash-alt"></i>
+                        </div>
+                    </div>
+
+                    <div className="mb-1  w-100 ">{this.props.task.description}</div>
+                    <small>{this.props.task.dueDate}</small>
+                 </div>
+            )
+        }
     }
 }
 

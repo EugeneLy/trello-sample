@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React, {Component} from "react";
 
-class AddForm extends Component {
+class EditTaskForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: '',
-            boardId: '',
-            description: '',
-            dueDate: ''
+            title: this.props.task.title,
+            boardId: this.props.task.boardId,
+            description: this.props.task.description,
+            dueDate: this.props.task.dueDate
         }
     }
 
@@ -23,25 +23,28 @@ class AddForm extends Component {
         this.setState({ dueDate: event.target.value });
     }
 
-    handleTaskAdd() {
+    handleToggle() {
+        this.props.toggleMode();
+    }
+
+    handleTaskEdit() {
         const newTask = {
+            _id: this.props.task._id,
             title: this.state.title,
-            boardId: this.props.boardId,
+            boardId: this.props.task.boardId,
             description: this.state.description,
             dueDate: this.state.dueDate
         };
 
         console.log(newTask);
-        this.props.onTaskAdded(newTask);
-        this.setState({ title: '', description: '', dueDate: ''});
+        this.props.onTaskEdit(newTask);
+        this.handleToggle();
     }
 
     render() {
-        console.log(this.props.boardId);
         return (
-            <div className='addTaskForm'>
-
-                <div className='form-group'>
+            <div className="list-group-item list-group-item-action">
+                <div className='form-group w-100'>
                     <input type='text'
                            placeholder='Title'
                            className="form-control"
@@ -49,8 +52,7 @@ class AddForm extends Component {
                            onChange={this.handleTitleChange.bind(this)}
                     />
                 </div>
-
-                <div className='form-group'>
+                <div className='form-group w-100'>
                     <input type='text'
                            placeholder='Description'
                            className="form-control"
@@ -58,8 +60,7 @@ class AddForm extends Component {
                            onChange={this.handleDescriptionChange.bind(this)}
                     />
                 </div>
-
-                <div className='form-group'>
+                <div className='form-group w-100'>
                     <input type='text'
                            placeholder='Due date'
                            className="form-control"
@@ -67,19 +68,27 @@ class AddForm extends Component {
                            onChange={this.handleDueDateChange.bind(this)}
                     />
                 </div>
-
-                <div className='form-group'>
+                <div className='form-group w-100'>
                     <input
                         type='button'
-                        value='Add task'
+                        value='Save task'
                         disabled={!this.state.title||!this.state.description}
-                        className="btn btn-info w-100"
-                        onClick={this.handleTaskAdd.bind(this)}
+                        className="btn btn-success w-100"
+                        onClick={this.handleTaskEdit.bind(this)}
                     />
                 </div>
+                <div className='form-group w-100'>
+                    <input
+                        type='button'
+                        value='Cancel'
+                        className="btn btn-warning w-100"
+                        onClick={this.handleToggle.bind(this)}
+                    />
+                </div>
+
             </div>
         )
     }
 }
 
-export default AddForm;
+export default EditTaskForm;

@@ -26,6 +26,7 @@ class AddBoardForm extends Component {
             <div>
                 <div className='form-group '>
                     <button className="btn btn-info w-100"
+                            disabled={!this.state.title}
                             onClick={this.handleBoardAdd.bind(this)}
                     >Add board</button>
                 </div>

@@ -1,5 +1,17 @@
-.list-group-item {
-  position: relative;
-  margin-bottom: 10px;
-  font-size: 13px;
+.list-group {
+  .list-group-item {
+    position: relative;
+    margin-bottom: 10px;
+    font-size: 13px;
+
+    .title {
+      padding-right: 45px;
+
+      .delete {
+        top: 0;
+        right: -5px;
+      }
+    }
+  }
 }
+

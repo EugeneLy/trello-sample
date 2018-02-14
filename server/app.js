@@ -21,8 +21,11 @@ app.get('/tasks', (req, res) => {
     db.getTasks().then(data => res.send(data));
 });
 
+app.put('/task/edit', (req, res) => {
+    db.editTask(req.body).then(data => res.send(data));
+});
+
 app.post('/tasks', (req, res) => {
-    console.log(req.body);
     db.createTask(req.body).then(data => res.send(data));
 });
 

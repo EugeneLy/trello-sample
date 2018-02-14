@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Task from "../Task/Task.jsx";
 import AddBoardForm from "../AddBoardForm/AddBoardForm.jsx";
-import ToggleTaskForm from "../ToggleTaskForm/ToggleTaskForm.jsx";
+import ToggleTaskForm from "../ToggleFormButton/ToggleFormButton.jsx";
 
 import './board.scss';
 
@@ -20,19 +20,19 @@ class Board extends Component {
         return (
             <div>
                 {this.props.boards.map((board,index) =>
-                    <div id={board._id} className="list-group" key={index}>
+                    <div className="list-group" key={index}>
                         <h2 className="title">{board.title}
-                            <button className="close"  onClick={this.handleRemoveBoard.bind(null, board)}>&times;</button>
+                            <div className="delete" onClick={this.handleRemoveBoard.bind(null, board)}>
+                                <i className="far fa-trash-alt"></i>
+                            </div>
                         </h2>
 
                         {this.props.tasks.map((task,index) =>
                             task.boardId !== board._id ? null :
                                 <Task key={index}
-                                  title={task.title}
                                   onTaskDelete={this.props.onTaskDelete}
-                                  curentTask={task}
-                                  description={task.description}
-                                  dueDate={task.dueDate}
+                                  onTaskEdit={this.props.onTaskEdit}
+                                  task={task}
                             >
                             </Task>
                         )}

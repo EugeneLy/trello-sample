@@ -17,6 +17,17 @@ exports.getTasks = () => {
     return Task.find();
 };
 
+exports.editTask = (data) => {
+    console.log(data._id);
+    return Task.update({_id:data._id},{
+        $set: {
+            title: data.title,
+            description: data.description,
+            dueDate: data.dueDate
+        }
+    })
+};
+
 exports.createTask = (data) => {
     const task = new Task({
         title: data.title,

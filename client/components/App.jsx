@@ -15,6 +15,7 @@ class App extends Component {
         this.handleTaskDelete = this.handleTaskDelete.bind(this);
         this.handleBoardAdd = this.handleBoardAdd.bind(this);
         this.handleBoardDelete = this.handleBoardDelete.bind(this);
+        this.handleTaskEdit = this.handleTaskEdit.bind(this);
     }
 
     fetchTasks() {
@@ -22,6 +23,15 @@ class App extends Component {
             .then(({ data }) => {
                 this.props.onLoadTasks(data);
             });
+    }
+
+    handleTaskEdit(task) {
+        api.editTask(task)
+            .then(() => {
+                this.fetchTasks();
+            }).catch(err =>
+                console.error(err)
+            );
     }
 
     handleTaskAdd(task) {
@@ -85,6 +95,7 @@ class App extends Component {
                 <Board
                     onTaskAdded={this.handleTaskAdd}
                     onTaskDelete={this.handleTaskDelete}
+                    onTaskEdit={this.handleTaskEdit}
                     onBoardAdded={this.handleBoardAdd}
                     onBoardDelete={this.handleBoardDelete}
                     tasks={this.props.tasks}
