@@ -3,11 +3,20 @@
 
  A Trello-sample board based on React, Redux, NodeJS, MongoDB.
  
- ##Installation
+ ## Installation
+ 
  Firstly make sure that you have Node and Git installed. Next clone this repo.
  
- install the necessary packages locally
+ Install the necessary packages locally
  
  ``````
  npm install
+ ``````
+ 
+And start up a local server and devserver
+
+ ``````
+ npm run server
+ 
+ npm run webpack-devserver
  ``````
