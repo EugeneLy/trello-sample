@@ -13,7 +13,7 @@
  npm install
  ``````
  
-And start up a local server and devserver
+And start up a local server and webpack devserver
 
  ``````
  npm run server
