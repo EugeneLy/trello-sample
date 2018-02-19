@@ -31,7 +31,6 @@ class AddForm extends Component {
             dueDate: this.state.dueDate
         };
 
-        console.log(newTask);
         this.props.onTaskAdded(newTask);
         this.setState({ title: '', description: '', dueDate: ''});
     }

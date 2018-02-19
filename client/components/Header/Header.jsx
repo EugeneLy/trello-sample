@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import Authorization from '../Authorization/Authorization.jsx';
 import './Header.scss';
 
 class Header extends Component {
@@ -11,6 +12,8 @@ class Header extends Component {
                 </div>
 
                 <span className="caption">TrelloSample</span>
+
+                <Authorization />
             </nav>
         )
 
