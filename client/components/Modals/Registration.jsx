@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { registerUser, registerEnd } from '../../actions/actions.js';
+import { registerUser, registerEnd } from '../../actions/auth.js';
 
 import './Modals.scss'
 

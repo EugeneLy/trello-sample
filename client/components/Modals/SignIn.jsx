@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { loginUser, loginEnd } from '../../actions/actions.js';
+import { loginUser, loginEnd } from '../../actions/auth.js';
 
 const form = reduxForm({
    form: 'signin'
@@ -91,6 +91,7 @@ class SignIn extends Component {
 
 
 function mapStateToProps(state) {
+    console.log(state);
     return {
         errorMessage: state.auth.error,
         message: state.auth.message,

@@ -18,7 +18,7 @@ class ToggleTaskForm extends Component {
         let btnText;
 
         if(this.state.isOpened){
-            taskForm = <AddTaskForm boardId={this.props.boardId} onTaskAdded={this.props.onTaskAdded.bind(this)} />;
+            taskForm = <AddTaskForm boardId={this.props.boardId}/>;
             btnText = 'Close form';
         }
 

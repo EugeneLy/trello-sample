@@ -9,7 +9,7 @@ import { AUTH_USER,
 const initialSatte = { error: '', message: '', authenticated: false, authprocess: false};
 
 export default function (state = initialSatte, action) {
-    console.log(state);
+    console.log(action.payload);
     switch(action.type) {
         case AUTH_USER:
             return { error: '', message: '', authenticated: true };

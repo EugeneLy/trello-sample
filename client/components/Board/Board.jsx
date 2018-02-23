@@ -1,19 +1,27 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import Task from "../Task/Task.jsx";
 import AddBoardForm from "../AddBoardForm/AddBoardForm.jsx";
 import ToggleTaskForm from "../ToggleFormButton/ToggleFormButton.jsx";
+
+import { getTasks } from '../../actions/task.js';
+import { getBoards, removeBoard } from '../../actions/board.js';
 
 import './board.scss';
 
 class Board extends Component {
     constructor(props) {
         super(props);
-        this.handleRemoveBoard = this.handleRemoveBoard.bind(this);
     }
 
     handleRemoveBoard(boardId) {
-        this.props.onBoardDelete(boardId);
+        this.props.removeBoard(boardId);
+    }
+
+    componentWillMount() {
+        this.props.getBoards();
+        this.props.getTasks();
     }
 
     render() {
@@ -22,7 +30,7 @@ class Board extends Component {
                 {this.props.boards.map((board,index) =>
                     <div className="list-group" key={index}>
                         <h2 className="title">{board.title}
-                            <div className="delete" onClick={this.handleRemoveBoard.bind(null, board)}>
+                            <div className="delete" onClick={this.handleRemoveBoard.bind(this)}>
                                 <i className="far fa-trash-alt"></i>
                             </div>
                         </h2>
@@ -30,29 +38,31 @@ class Board extends Component {
                         {this.props.tasks.map((task,index) =>
                             task.boardId !== board._id ? null :
                                 <Task key={index}
-                                  onTaskDelete={this.props.onTaskDelete}
-                                  onTaskEdit={this.props.onTaskEdit}
                                   task={task}
                             >
                             </Task>
                         )}
 
                         <ToggleTaskForm
-                            onTaskAdded = {this.props.onTaskAdded}
                             boardId={board._id}
                         />
                     </div>
                 )}
 
                 <div className="list-group">
-                    <AddBoardForm
-                        onBoardAdded={this.props.onBoardAdded}
-                    />
+                    <AddBoardForm />
                 </div>
             </div>
         )
-
     }
 }
 
-export default Board;
+function mapStateToProps(state) {
+    console.log(state);
+    return {
+        boards: state.boards,
+        tasks: state.tasks
+    };
+}
+
+export default connect(mapStateToProps, {getBoards, removeBoard, getTasks })(Board);

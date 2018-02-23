@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 
+import { connect } from 'react-redux';
+
+import { createBoard, getBoards} from '../../actions/board.js';
+
 class AddBoardForm extends Component {
     constructor(props) {
         super(props);
@@ -17,7 +21,10 @@ class AddBoardForm extends Component {
         };
 
         console.log(newBoard);
-        this.props.onBoardAdded(newBoard);
+        this.props.createBoard(newBoard);
+
+                this.props.getBoards();
+
         this.setState({ title: ''});
     }
 
@@ -45,4 +52,8 @@ class AddBoardForm extends Component {
     }
 }
 
-export default AddBoardForm;
+function mapStateToProps(state) {
+    return state;
+}
+
+export default connect(mapStateToProps, { createBoard, getBoards })(AddBoardForm);

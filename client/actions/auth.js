@@ -12,7 +12,6 @@ import { AUTH_USER,
 export function errorHandler(dispatch, error, type) {
     let errorMessage = '';
 
-    logoutUser();
     if(error.data.error) {
         errorMessage = error.data.error;
     } else if(error.data){
@@ -53,7 +52,6 @@ export function registerUser({ name, email, password }) {
 
 export function loginUser({ email, password }) {
     return function(dispatch) {
-
         axios.post(`${apiPrefix}/signin`, { email, password })
             .then((response) => {
                 logoutUser();
@@ -61,7 +59,6 @@ export function loginUser({ email, password }) {
                 cookie.save('token', response.data.token, { path: '/' });
                 cookie.save('user', response.data.user, { path: '/' });
                 dispatch({ type: AUTH_USER });
-                //window.location.href = CLIENT_ROOT_URL + '/dashboard';
             })
             .catch((error) => {
                 console.log(error);
@@ -74,6 +71,7 @@ export function logoutUser() {
     return function (dispatch) {
         dispatch({ type: UNAUTH_USER });
         cookie.remove('token', { path: '/' });
+        cookie.remove('user', { path: '/' });
     }
 }
 

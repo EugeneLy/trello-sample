@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+//import { connect } from 'react-redux';
 
 import Header from './Header/Header.jsx';
 import Board from './Board/Board.jsx';
@@ -7,20 +7,20 @@ import SignIn from './Modals/SignIn.jsx';
 import Registration from './Modals/Registration.jsx';
 
 import './App.scss'
-import api from "../api";
+//import api from "../api";
 
 class App extends Component {
     constructor(props) {
         super(props);
-        this.fetchTasks = this.fetchTasks.bind(this);
+        /*this.fetchTasks = this.fetchTasks.bind(this);
         this.handleTaskAdd = this.handleTaskAdd.bind(this);
-        this.handleTaskDelete = this.handleTaskDelete.bind(this);
-        this.handleBoardAdd = this.handleBoardAdd.bind(this);
-        this.handleBoardDelete = this.handleBoardDelete.bind(this);
-        this.handleTaskEdit = this.handleTaskEdit.bind(this);
+        this.handleTaskDelete = this.handleTaskDelete.bind(this);*/
+        /*this.handleBoardAdd = this.handleBoardAdd.bind(this);
+        this.handleBoardDelete = this.handleBoardDelete.bind(this);*/
+        /*this.handleTaskEdit = this.handleTaskEdit.bind(this);*/
     }
 
-    fetchTasks() {
+    /*fetchTasks() {
         api.getTasks()
             .then(({ data }) => {
                 this.props.onLoadTasks(data);
@@ -55,10 +55,10 @@ class App extends Component {
             .catch(err =>
                 console.error(err)
             );
-    }
+    }*/
 
     /*Handle boards load*/
-    fetchBoards() {
+    /*fetchBoards() {
         api.getBoards()
             .then(({ data }) => {
                 this.props.onLoadBoards(data);
@@ -84,19 +84,15 @@ class App extends Component {
             .catch(err =>
                 console.error(err)
             );
-    }
+    }*/
 
-    componentWillMount() {
-        this.fetchBoards();
-        this.fetchTasks();
-    }
     render() {
         return (
             <div className="content">
                 <Header />
                 <Board
                     onTaskAdded={this.handleTaskAdd}
-                    onTaskDelete={this.handleTaskDelete}
+                    /*onTaskDelete={this.handleTaskDelete}*/
                     onTaskEdit={this.handleTaskEdit}
                     onBoardAdded={this.handleBoardAdd}
                     onBoardDelete={this.handleBoardDelete}
@@ -111,17 +107,18 @@ class App extends Component {
     }
 }
 
-export default  connect(
-    state => ({
+export default App
+/*connect(
+   /!* state => ({
         tasks: state.tasks,
         boards: state.boards
-    }),
+    }),*!/
     dispatch => ({
-        onLoadTasks:(tasksCollection) => {
+        /!*onLoadTasks:(tasksCollection) => {
             dispatch({type: 'LOAD_TASKS_SUCCESS', payload: tasksCollection})
-        },
-        onLoadBoards: (boardsCollection) => {
+        },*!/
+       /!* onLoadBoards: (boardsCollection) => {
             dispatch({type: 'LOAD_BOARDS_SUCCESS', payload: boardsCollection})
-        }
+        }*!/
     })
-)(App);
+)(App);*/

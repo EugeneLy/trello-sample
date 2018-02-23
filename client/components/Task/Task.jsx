@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import EditTaskForm from '../EditTaskForm/EditTaskForm.jsx';
+import { removeTask } from '../../actions/task.js';
 
 import './Task.scss';
 
@@ -8,12 +10,10 @@ class Task extends Component {
     constructor(props) {
         super(props);
         this.state={isEditable: false};
-
-        this.handleRemoveTask = this.handleRemoveTask.bind(this);
     }
 
     handleRemoveTask(task) {
-        this.props.onTaskDelete(task);
+        this.props.removeTask(task);
     }
 
     toggleMode() {
@@ -37,7 +37,7 @@ class Task extends Component {
                         <div className="edit" onClick={this.toggleMode.bind(this)}>
                             <i className="fas fa-edit"></i>
                         </div>
-                        <div className="delete" onClick={this.handleRemoveTask.bind(null, this.props.task)}>
+                        <div className="delete" onClick={this.handleRemoveTask.bind(this)}>
                             <i className="far fa-trash-alt"></i>
                         </div>
                     </div>
@@ -50,4 +50,8 @@ class Task extends Component {
     }
 }
 
-export default Task;
+function mapStateToProps(state) {
+    return state;
+}
+
+export default connect(mapStateToProps, { removeTask })(Task);

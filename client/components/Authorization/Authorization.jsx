@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { logoutUser, loginStart, registerStart } from '../../actions/actions.js';
+import { logoutUser, loginStart, registerStart } from '../../actions/auth.js';
 import './authorization.scss'
 
 class Authorization extends Component {
@@ -65,7 +65,9 @@ class Authorization extends Component {
 }
 
 function mapStateToProps(state) {
-    return { authenticated: state.auth.authenticated };
+    return {
+        authenticated: state.auth.authenticated
+    };
 }
 
 export default connect(mapStateToProps, { logoutUser, loginStart, registerStart })(Authorization);
