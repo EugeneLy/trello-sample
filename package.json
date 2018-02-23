@@ -11,13 +11,17 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.17.1",
-    "bcrypt": "^1.0.3",
+    "bcrypt-nodejs": "0.0.3",
     "express": "^4.16.2",
+    "jsonwebtoken": "^8.1.1",
     "mongoose": "^5.0.4",
     "react": "^16.2.0",
+    "react-cookies": "^0.1.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "redux-form": "^7.2.3",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",

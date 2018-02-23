@@ -13,7 +13,7 @@ export default {
     },
 
     createTask(data) {
-        console.log(data);
+        //console.log(data);
         return axios.post(`${apiPrefix}/tasks`, data);
     },
 

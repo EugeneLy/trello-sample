@@ -1,0 +1,15 @@
+.modal {
+  &.fade {
+    display: block;
+    background: rgba(0,0,0, 0.5);
+    opacity: 1;
+
+    .modal-dialog {
+      transform: translate(0,0);
+    }
+  }
+
+  .modal-title {
+    color: #333;
+  }
+}

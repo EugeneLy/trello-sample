@@ -10,10 +10,6 @@ app.use(cors({ origin: '*' }));
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
-    res.send('hallo!');
-});
-
 const Routes = require('./routes');
 Routes(app);
 

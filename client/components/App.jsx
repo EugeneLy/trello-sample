@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import Header from './Header/Header.jsx';
 import Board from './Board/Board.jsx';
+import SignIn from './Modals/SignIn.jsx';
+import Registration from './Modals/Registration.jsx';
 
 import './App.scss'
 import api from "../api";
@@ -101,6 +103,9 @@ class App extends Component {
                     tasks={this.props.tasks}
                     boards={this.props.boards}
                 />
+
+                <SignIn />
+                <Registration />
             </div>
         )
     }
