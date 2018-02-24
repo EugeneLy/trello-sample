@@ -6,11 +6,11 @@ import {connect} from "react-redux";
 class EditTaskForm extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
-            title: this.props.task.title,
-            boardId: this.props.task.boardId,
-            description: this.props.task.description,
-            dueDate: this.props.task.dueDate
+            title: this.props.editableTask.title,
+            description: this.props.editableTask.description,
+            dueDate: this.props.editableTask.dueDate
         }
     }
 
@@ -32,9 +32,9 @@ class EditTaskForm extends Component {
 
     handleTaskEdit() {
         const newTask = {
-            _id: this.props.task._id,
+            _id: this.props.editableTask._id,
             title: this.state.title,
-            boardId: this.props.task.boardId,
+            boardId: this.props.editableTask.boardId,
             description:this.state.description,
             dueDate: this.state.dueDate
         };

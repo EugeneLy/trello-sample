@@ -51,7 +51,7 @@ class Task extends Component {
         if(this.state.isEditable){
             return (
                 <EditTaskForm
-                    task={this.props.task}
+                    editableTask={this.props.task}
                     toggleMode={this.toggleMode.bind(this)}
                 />
             )
@@ -65,7 +65,6 @@ class Task extends Component {
                          <div className="d-flex w-100 title">
                             <h5 className="mb-1">{this.props.task.title}</h5>
                         </div>
-
                          <small>{this.props.task.dueDate}</small>
                      </div>
                  </div>

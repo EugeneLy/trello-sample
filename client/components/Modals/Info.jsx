@@ -52,7 +52,6 @@ class Info extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log(state);
     return {
       info: state.task.info,
       watchinfo: state.task.watchinfo

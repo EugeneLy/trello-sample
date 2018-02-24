@@ -15,7 +15,6 @@ class Registration extends Component {
     }
 
     handleSubmitRegister (formProps) {
-        console.log('regis s');
         this.props.registerUser(formProps);
     }
 
@@ -30,7 +29,6 @@ class Registration extends Component {
     }
 
     handleRegister() {
-        console.log(this.props.regstprocess);
         if (this.props.regstprocess) {
             const { handleSubmit } = this.props;
             return (

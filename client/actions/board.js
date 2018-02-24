@@ -5,8 +5,6 @@ import { LOAD_BOARDS_SUCCESS } from './types';
 
 export function getBoards() {
     return (dispatch) => {
-            console.log(dispatch);
-            console.log('getBOARD');
             axios.get(`${apiPrefix}/boards`)
              .then(({ data }) => {
                 //this.props.onLoadBoards(data);
