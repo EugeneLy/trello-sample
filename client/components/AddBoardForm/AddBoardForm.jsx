@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-
 import { connect } from 'react-redux';
 
-import { createBoard, getBoards} from '../../actions/board.js';
+import { getBoards} from '../../actions/board.js';
+import api from '../../api/board.js'
 
 class AddBoardForm extends Component {
     constructor(props) {
@@ -21,9 +21,10 @@ class AddBoardForm extends Component {
         };
 
         console.log(newBoard);
-        this.props.createBoard(newBoard);
-
-                this.props.getBoards();
+        api.createBoard(newBoard)
+            .then(() =>
+                this.props.getBoards()
+            );
 
         this.setState({ title: ''});
     }
@@ -56,4 +57,4 @@ function mapStateToProps(state) {
     return state;
 }
 
-export default connect(mapStateToProps, { createBoard, getBoards })(AddBoardForm);
+export default connect(mapStateToProps, { getBoards })(AddBoardForm);

@@ -11,6 +11,7 @@ let generateToken = (user) => {
 };
 
 let setUserInfo = (request) => {
+    //console.log(request);
     return {
         _id: request._id,
         name: request.name,
@@ -63,12 +64,12 @@ exports.register = (req, res, next) => {
 };
 
 exports.signIn = (req, res) => {
-    const userInfo = setUserInfo(req.body);
-
     User.findOne({
         email: req.body.email
     }, (err, user) => {
         if (err) throw err;
+
+        const userInfo = setUserInfo(user);
 
         if (!user) {
             res.status(401).send({ error: 'Authentication failed. User not found.' });

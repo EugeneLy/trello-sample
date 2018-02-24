@@ -13,9 +13,10 @@ const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
 const store = createStoreWithMiddleware(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 const token = cookie.load('token');
+const user = cookie.load('user');
 
 if (token) {
-    store.dispatch({ type: AUTH_USER });
+    store.dispatch({ type: AUTH_USER, payload: user });
 }
 
 ReactDOM.render(

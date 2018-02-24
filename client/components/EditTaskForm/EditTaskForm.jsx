@@ -1,4 +1,7 @@
 import React, {Component} from "react";
+import { getTasks } from '../../actions/task.js';
+import api from '../../api/task.js'
+import {connect} from "react-redux";
 
 class EditTaskForm extends Component {
     constructor(props) {
@@ -32,12 +35,15 @@ class EditTaskForm extends Component {
             _id: this.props.task._id,
             title: this.state.title,
             boardId: this.props.task.boardId,
-            description: this.state.description,
+            description:this.state.description,
             dueDate: this.state.dueDate
         };
 
         console.log(newTask);
-        this.props.onTaskEdit(newTask);
+        api.editTask(newTask)
+            .then(() =>
+                this.props.getTasks()
+            );
         this.handleToggle();
     }
 
@@ -91,4 +97,8 @@ class EditTaskForm extends Component {
     }
 }
 
-export default EditTaskForm;
+function mapStateToProps(state) {
+    return state;
+}
+
+export default connect(mapStateToProps, { getTasks })(EditTaskForm);

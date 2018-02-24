@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { createTask } from '../../actions/task.js';
+import { getTasks } from '../../actions/task.js';
+import api from '../../api/task.js'
+
 
 class AddForm extends Component {
     constructor(props) {
@@ -34,7 +36,11 @@ class AddForm extends Component {
             dueDate: this.state.dueDate
         };
 
-        this.props.createTask(newTask);
+        api.createTask(newTask)
+            .then(() =>
+                this.props.getTasks()
+            );
+
         this.setState({ title: '', description: '', dueDate: ''});
     }
 
@@ -88,4 +94,4 @@ function mapStateToProps(state) {
     return state;
 }
 
-export default connect(mapStateToProps, { createTask })(AddForm);
+export default connect(mapStateToProps, { getTasks })(AddForm);

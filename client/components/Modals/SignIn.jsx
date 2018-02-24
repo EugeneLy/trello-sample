@@ -7,7 +7,7 @@ const form = reduxForm({
    form: 'signin'
 });
 
-import './Modals.scss'
+import './Modals.scss';
 
 class SignIn extends Component {
 

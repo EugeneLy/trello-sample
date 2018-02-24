@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { logoutUser, loginStart, registerStart } from '../../actions/auth.js';
-import './authorization.scss'
+import './Authorization.scss'
 
 class Authorization extends Component {
     constructor(props) {
@@ -44,10 +44,15 @@ class Authorization extends Component {
             return (
                 <ul className="nav justify-content-end">
                     <li className="nav-item">
-                        <a className="nav-link" href="#" onClick={this.handleLogOut.bind(this)}>
+                        <span className="nav-link">
                             <i className="fas fa-user"></i>
-                            Logout
-                        </a>
+                            Hi! {this.props.user.name}
+
+                            <span
+                               className="text-primary"
+                               onClick={this.handleLogOut.bind(this)}
+                            >Logout</span>
+                        </span>
                     </li>
                 </ul>
             )
@@ -66,7 +71,8 @@ class Authorization extends Component {
 
 function mapStateToProps(state) {
     return {
-        authenticated: state.auth.authenticated
+        authenticated: state.auth.authenticated,
+        user: state.auth.user
     };
 }
 

@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 
 import Task from "../Task/Task.jsx";
 import AddBoardForm from "../AddBoardForm/AddBoardForm.jsx";
-import ToggleTaskForm from "../ToggleFormButton/ToggleFormButton.jsx";
+import ToggleFormButton from "../ToggleFormButton/ToggleFormButton.jsx";
 
 import { getTasks } from '../../actions/task.js';
-import { getBoards, removeBoard } from '../../actions/board.js';
+import { getBoards} from '../../actions/board.js';
+import api from '../../api/board.js'
 
-import './board.scss';
+import './Board.scss';
 
 class Board extends Component {
     constructor(props) {
@@ -16,7 +17,10 @@ class Board extends Component {
     }
 
     handleRemoveBoard(boardId) {
-        this.props.removeBoard(boardId);
+        api.removeBoard(boardId)
+            .then(() =>
+                this.props.getBoards()
+            );
     }
 
     componentWillMount() {
@@ -26,43 +30,50 @@ class Board extends Component {
 
     render() {
         return (
-            <div>
+            <div className="desk">
                 {this.props.boards.map((board,index) =>
                     <div className="list-group" key={index}>
                         <h2 className="title">{board.title}
-                            <div className="delete" onClick={this.handleRemoveBoard.bind(this)}>
-                                <i className="far fa-trash-alt"></i>
-                            </div>
+                            {this.props.authenticated ?
+                                <div className="delete"
+                                     onClick={this.handleRemoveBoard.bind(this, board._id)}>
+                                    <i className="far fa-trash-alt"></i>
+                                </div>
+                                : null
+                            }
                         </h2>
 
                         {this.props.tasks.map((task,index) =>
                             task.boardId !== board._id ? null :
                                 <Task key={index}
-                                  task={task}
-                            >
-                            </Task>
+                                      task={task}>
+                                </Task>
                         )}
 
-                        <ToggleTaskForm
-                            boardId={board._id}
-                        />
+                        {this.props.authenticated ?
+                            <ToggleFormButton boardId={board._id} />
+                            :null
+                        }
                     </div>
                 )}
 
-                <div className="list-group">
-                    <AddBoardForm />
-                </div>
+
+                {this.props.authenticated ?
+                    <div className="list-group"> <AddBoardForm /></div>
+                    :null
+                }
+
             </div>
         )
     }
 }
 
 function mapStateToProps(state) {
-    console.log(state);
     return {
         boards: state.boards,
-        tasks: state.tasks
+        tasks: state.tasks,
+        authenticated: state.auth.authenticated
     };
 }
 
-export default connect(mapStateToProps, {getBoards, removeBoard, getTasks })(Board);
+export default connect(mapStateToProps, {getBoards, getTasks })(Board);

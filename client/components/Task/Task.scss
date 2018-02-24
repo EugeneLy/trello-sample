@@ -6,10 +6,36 @@
 
     .title {
       padding-right: 45px;
+    }
 
-      .delete {
-        top: 0;
-        right: -5px;
+    .info-bloc {
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .delete{
+      cursor: pointer;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 18px;
+      z-index: 2;
+
+      &:hover{
+        color: #9ea4b2;
+      }
+    }
+
+    .edit{
+      cursor: pointer;
+      top: 10px;
+      right: 35px;
+      position: absolute;
+      font-size: 18px;
+      z-index: 2;
+
+      &:hover{
+        color: #9ea4b2;
       }
     }
   }

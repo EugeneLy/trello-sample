@@ -58,7 +58,7 @@ export function loginUser({ email, password }) {
                 console.log(response.data.token);
                 cookie.save('token', response.data.token, { path: '/' });
                 cookie.save('user', response.data.user, { path: '/' });
-                dispatch({ type: AUTH_USER });
+                dispatch({ type: AUTH_USER, payload: response.data.user });
             })
             .catch((error) => {
                 console.log(error);

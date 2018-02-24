@@ -1,44 +1,31 @@
 import axios from 'axios';
 
 const { apiPrefix } = require('../../configs/server.json');
+import { LOAD_TASKS_SUCCESS,
+         START_WATCH_INFO,
+         END_WATCH_INFO} from './types';
 
-export function getTasks() {
+export function getTasks() {END_WATCH_INFO
     return function(dispatch) {
             axios.get(`${apiPrefix}/tasks`)
             .then(({ data }) => {
-                dispatch({type: 'LOAD_TASKS_SUCCESS', payload: data})
+                dispatch({type: LOAD_TASKS_SUCCESS, payload: data})
             }).catch(err =>
                 console.error(err)
             );
     }
 }
 
-export function editTask(data) {
-    return axios.put(`${apiPrefix}/task/edit`, data)
-           .then(() => {
-                getTasks();
-           }).catch(err =>
-                console.error(err)
-           );
-}
-
-export function createTask(data) {
-    return function() {
-        axios.post(`${apiPrefix}/tasks`, data)
-            .then(() => {
-                getTasks();
-            }).catch(err =>
-            console.error(err)
-        );
+export function startWatchInfo(info) {
+    return function(dispatch) {
+           dispatch({type: START_WATCH_INFO, payload: info})
     }
 }
 
-export function removeTask(taskId) {
-    return axios.delete(`${apiPrefix}/tasks/${taskId}`)
-           .then(() => {
-               getTasks();
-           }).catch(err =>
-               console.error(err)
-           );
+export function endWatchInfo() {
+    return function(dispatch) {
+        dispatch({type: END_WATCH_INFO, payload: ''})
+    }
 }
+
 
