@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { DragSource, DropTarget } from 'react-dnd'
 
 import EditTaskForm from '../EditTaskForm/EditTaskForm.jsx';
 import { loginStart } from '../../actions/auth.js';
@@ -48,6 +49,7 @@ class Task extends Component {
     }
 
     render() {
+        const { connectDragSource, connectDropTarget, isOver, isDragging } = this.props;
         if(this.state.isEditable){
             return (
                 <EditTaskForm
@@ -56,8 +58,13 @@ class Task extends Component {
                 />
             )
         } else {
-             return(
-                 <div className="list-group-item task-item list-group-item-action">
+             return connectDropTarget(connectDragSource(
+                 <div className="list-group-item task-item list-group-item-action"
+                      style={{
+                          opacity: isDragging ? 0.5 : 1,
+                          backgroundColor: isOver ? '#E6E6FA' : 'white'
+                      }} >
+
                      {this.navAuthUserOnly()}
                      <div className="info-bloc"
                           onClick={this.showInfo.bind(this)}>
@@ -68,8 +75,42 @@ class Task extends Component {
                          <small>{this.props.task.dueDate}</small>
                      </div>
                  </div>
-            )
+            ))
         }
+    }
+}
+
+const cardSource = {
+    beginDrag(props) {
+        return {
+            id: props.task._id
+        }
+    }
+}
+
+function dragCollect(connect, monitor) {
+    return {
+        connectDragSource: connect.dragSource(),
+        isDragging: monitor.isDragging()
+    }
+}
+
+const cardTarget = {
+    drop(props, monitor) {
+        console.log('Card Drop Fired');
+        return {
+            dropId: props.task._id
+        }
+    },
+    canDrop(props, monitor) {
+        return props.task._id !== monitor.getItem().id
+    }
+}
+
+function dropCollect(connect, monitor) {
+    return {
+        connectDropTarget: connect.dropTarget(),
+        isOver: monitor.isOver()
     }
 }
 
@@ -79,4 +120,6 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, { getTasks, loginStart, startWatchInfo })(Task);
+export default DropTarget('TASK', cardTarget, dropCollect)
+    (DragSource('TASK', cardSource, dragCollect)
+    (connect(mapStateToProps, { getTasks, loginStart, startWatchInfo })(Task)));

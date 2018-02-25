@@ -11,6 +11,7 @@ exports.getBoard = () => {
 exports.createBoard = (data) => {
     const board = new Board({
         title: data.title,
+        tasks: data.tasks,
     });
 
     return board.save();

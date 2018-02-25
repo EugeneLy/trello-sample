@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { DropTarget } from 'react-dnd';
 
 import Task from "../Task/Task.jsx";
-import AddBoardForm from "../AddBoardForm/AddBoardForm.jsx";
 import ToggleFormButton from "../ToggleFormButton/ToggleFormButton.jsx";
 
-import { getTasks } from '../../actions/task.js';
-import { getBoards} from '../../actions/board.js';
 import api from '../../api/board.js'
 
 import './Board.scss';
@@ -24,56 +22,77 @@ class Board extends Component {
     }
 
     componentWillMount() {
-        this.props.getBoards();
-        this.props.getTasks();
+
     }
 
     render() {
-        return (
-            <div className="desk">
-                {this.props.boards.map((board,index) =>
-                    <div className="list-group" key={index}>
-                        <h2 className="title">{board.title}
-                            {this.props.authenticated ?
-                                <div className="delete"
-                                     onClick={this.handleRemoveBoard.bind(this, board._id)}>
-                                    <i className="far fa-trash-alt"></i>
-                                </div>
-                                : null
-                            }
-                        </h2>
+        const { connectDropTarget, board } = this.props;
+        return connectDropTarget(
+            <div className="list-group">
+                <h2 className="title">{board.title}
+                    {this.props.authenticated ?
+                        <div className="delete"
+                             onClick={this.handleRemoveBoard.bind(this, board._id)}>
+                            <i className="far fa-trash-alt"></i>
+                        </div>
+                        : null
+                    }
+                </h2>
 
-                        {this.props.tasks.map((task,index) =>
-                            task.boardId !== board._id ? null :
-                                <Task key={index}
-                                      task={task}>
-                                </Task>
-                        )}
-
-                        {this.props.authenticated ?
-                            <ToggleFormButton boardId={board._id} />
-                            :null
-                        }
-                    </div>
+                {this.props.tasks.map((task,index) =>
+                    task.boardId !== board._id ? null :
+                        <Task key={index}
+                              task={task}>
+                        </Task>
                 )}
 
-
                 {this.props.authenticated ?
-                    <div className="list-group"> <AddBoardForm /></div>
+                    <ToggleFormButton boardId={board._id} />
                     :null
                 }
-
             </div>
         )
     }
 }
 
+const listTarget = {
+    drop(props, monitor) {
+        console.log('Column Drop Fired');
+        const id = monitor.getItem().id;
+        const boardId = props.board._id;
+
+        let dragTask = props.tasks.filter((task) => {
+            return task._id === id;
+        })
+
+        //console.log(dragTask[0].boardId !== boardId);
+
+
+        /*if (!props.tasks.some(task => task._id === id)) {
+            props.drop(id, boardId);
+        }*/
+
+        if (dragTask[0].boardId !== boardId) {
+            props.drop(id, boardId);
+        }
+
+        if (monitor.getDropResult()) {
+            props.swap(id, monitor.getDropResult().dropId)
+        }
+    }
+}
+
+function collect(connect) {
+    return {
+        connectDropTarget: connect.dropTarget()
+    }
+}
+
 function mapStateToProps(state) {
     return {
-        boards: state.boards,
-        tasks: state.tasks,
         authenticated: state.auth.authenticated
     };
 }
 
-export default connect(mapStateToProps, {getBoards, getTasks })(Board);
+export default DropTarget('TASK', listTarget, collect)
+               (connect(mapStateToProps)(Board));
