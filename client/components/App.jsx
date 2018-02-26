@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
 
-import { getBoards } from '../actions/board.js';
+import { getBoards, changeTaskList, swapTask } from '../actions/board.js';
 import { getTasks } from '../actions/task.js';
-import { changeTaskList, swapTask } from '../actions/task.js';
+
+/*import { changeBoardList, swapTaskInBoard } from '../actions/board.js';*/
 import Header from './Header/Header.jsx';
 import Board from './Board/Board.jsx';
 import AddBoardForm from "./AddBoardForm/AddBoardForm.jsx";
@@ -60,7 +61,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
     return {
-        boards: state.boards,
+        boards: state.boards.collection,
         tasks: state.tasks.collection,
         authenticated: state.auth.authenticated
     };

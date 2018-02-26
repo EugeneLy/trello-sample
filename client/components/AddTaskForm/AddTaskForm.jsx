@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import uuid from 'uuid-v4';
 
+import { getBoards } from '../../actions/board.js';
 import { getTasks } from '../../actions/task.js';
-import api from '../../api/task.js'
+import apiTask from '../../api/task.js'
+import apiBoard from '../../api/board.js'
 
 
 class AddForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: '',
             title: '',
-            boardId: '',
             description: '',
             dueDate: ''
         }
@@ -30,13 +33,20 @@ class AddForm extends Component {
 
     handleTaskAdd() {
         const newTask = {
+            id: uuid(),
             title: this.state.title,
-            boardId: this.props.boardId,
             description: this.state.description,
             dueDate: this.state.dueDate
         };
 
-        api.createTask(newTask)
+        this.props.board.tasks.push(newTask.id)
+
+        apiBoard.editBoard(this.props.board)
+            .then(() =>
+                this.props.getBoards()
+            );
+
+        apiTask.createTask(newTask)
             .then(() =>
                 this.props.getTasks()
             );
@@ -45,7 +55,7 @@ class AddForm extends Component {
     }
 
     render() {
-        console.log(this.props.boardId);
+        console.log(this.props.board._id);
         return (
             <div className='addTaskForm'>
 
@@ -94,4 +104,4 @@ function mapStateToProps(state) {
     return state;
 }
 
-export default connect(mapStateToProps, { getTasks })(AddForm);
+export default connect(mapStateToProps, { getTasks, getBoards })(AddForm);

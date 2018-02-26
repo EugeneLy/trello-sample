@@ -83,7 +83,8 @@ class Task extends Component {
 const cardSource = {
     beginDrag(props) {
         return {
-            id: props.task._id
+            id: props.task.id,
+            parentList: props.boardId,
         }
     }
 }
@@ -99,11 +100,11 @@ const cardTarget = {
     drop(props, monitor) {
         console.log('Card Drop Fired');
         return {
-            dropId: props.task._id
+            dropId: props.task.id
         }
     },
     canDrop(props, monitor) {
-        return props.task._id !== monitor.getItem().id
+        return props.task.id !== monitor.getItem().id
     }
 }
 

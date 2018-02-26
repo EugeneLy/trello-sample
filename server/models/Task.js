@@ -3,9 +3,18 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const TaskSchema = new Schema({
-    title: {type: String},
-    boardId: {type: String},
-    description: {type: String},
+    id: {
+        type: String,
+        required: true
+    },
+    title: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
     dueDate: {type: String},
 });
 

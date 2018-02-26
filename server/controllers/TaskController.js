@@ -19,9 +19,10 @@ exports.editTask = (data) => {
 };
 
 exports.createTask = (data) => {
+    console.log(data);
     const task = new Task({
+        id: data.id,
         title: data.title,
-        boardId: data.boardId,
         description: data.description,
         dueDate: data.dueDate,
     });

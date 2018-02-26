@@ -17,6 +17,15 @@ exports.createBoard = (data) => {
     return board.save();
 };
 
+exports.editBoard = (data) => {
+    return Board.update({_id:data._id},{
+        $set: {
+            title: data.title,
+            tasks: data.tasks,
+        }
+    })
+};
+
 exports.removeBoard = (id) => {
     return Board.findById(id).remove();
 };

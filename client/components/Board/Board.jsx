@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { DropTarget } from 'react-dnd';
 
+import { getBoards } from '../../actions/board.js';
 import Task from "../Task/Task.jsx";
 import ToggleFormButton from "../ToggleFormButton/ToggleFormButton.jsx";
 
@@ -21,10 +22,6 @@ class Board extends Component {
             );
     }
 
-    componentWillMount() {
-
-    }
-
     render() {
         const { connectDropTarget, board } = this.props;
         return connectDropTarget(
@@ -39,15 +36,16 @@ class Board extends Component {
                     }
                 </h2>
 
-                {this.props.tasks.map((task,index) =>
-                    task.boardId !== board._id ? null :
-                        <Task key={index}
-                              task={task}>
-                        </Task>
+                {board.tasks.map(taskId =>
+                     this.props.tasks.map(task =>
+                        task.id === taskId ?
+                            <Task key={task.id} boardId={board._id} task={task}/>
+                            : null
+                    )
                 )}
 
                 {this.props.authenticated ?
-                    <ToggleFormButton boardId={board._id} />
+                    <ToggleFormButton board={board} />
                     :null
                 }
             </div>
@@ -56,28 +54,20 @@ class Board extends Component {
 }
 
 const listTarget = {
-    drop(props, monitor) {
+    drop(props, monitor, component) {
         console.log('Column Drop Fired');
+        this.startPosition = '';
         const id = monitor.getItem().id;
         const boardId = props.board._id;
-
-        let dragTask = props.tasks.filter((task) => {
-            return task._id === id;
-        })
-
-        //console.log(dragTask[0].boardId !== boardId);
+        const parentList = monitor.getItem().parentList;
 
 
-        /*if (!props.tasks.some(task => task._id === id)) {
-            props.drop(id, boardId);
-        }*/
-
-        if (dragTask[0].boardId !== boardId) {
-            props.drop(id, boardId);
+        if (props.board.tasks.indexOf(id) === -1) {
+            props.drop(id, boardId, parentList);
         }
 
         if (monitor.getDropResult()) {
-            props.swap(id, monitor.getDropResult().dropId)
+            props.swap(id, monitor.getDropResult().dropId, boardId, parentList)
         }
     }
 }
@@ -90,9 +80,10 @@ function collect(connect) {
 
 function mapStateToProps(state) {
     return {
+        boards: state.boards.collection,
         authenticated: state.auth.authenticated
     };
 }
 
 export default DropTarget('TASK', listTarget, collect)
-               (connect(mapStateToProps)(Board));
+               (connect(mapStateToProps, { getBoards })(Board));

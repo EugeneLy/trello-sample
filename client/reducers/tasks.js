@@ -1,8 +1,8 @@
-import { LOAD_TASKS_SUCCESS,
-         CHANGE_TASK_LIST,
-         SWAP_TASK} from '../actions/types';
+import { LOAD_TASKS_SUCCESS} from '../actions/types';
 
-export default function tasks(state = {}, action) {
+const initialSatate = {collection: []}
+
+export default function tasks(state = initialSatate, action) {
     //console.log(state);
     //console.log(action);
 
@@ -10,10 +10,10 @@ export default function tasks(state = {}, action) {
         case LOAD_TASKS_SUCCESS:
             return {collection: action.payload.tasks};
 
-        case CHANGE_TASK_LIST:
+        /*case CHANGE_TASK_LIST:
 
 
-            let newState = state.collection.map((task) => {
+            /!*let newState = state.collection.map((task) => {
                 if(task._id ===  action.payload.dragId) {
                     console.log(task);
                     task.boardId = action.payload.newList;
@@ -24,12 +24,15 @@ export default function tasks(state = {}, action) {
             })
             console.log(action.payload );
             console.log(newState );
+            {collection: newState}
+            *!/
 
-            return {collection: newState} ;
+
+            return  state;
 
         case SWAP_TASK:
             console.log(action.payload);
-            return state;
+            return state;*/
     }
 
 

@@ -12,6 +12,11 @@ boardRoutes.post('/board', (req, res) => {
     BoardController.createBoard(req.body).then(data => res.send(data));
 });
 
+boardRoutes.put('/board', (req, res) => {
+    BoardController.editBoard(req.body).then(data => res.send(data));
+});
+
+
 boardRoutes.delete('/board/:id', (req, res) => {
     console.log(req.params.id);
     BoardController.removeBoard(req.params.id).then(data => res.send(data));
