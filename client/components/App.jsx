@@ -42,6 +42,7 @@ class App extends Component {
                             drop={changeTaskList}
                             swap={swapTask}
                             tasks={this.props.tasks}
+                            authenticated={this.props.authenticated}
                         />
                     )}
 

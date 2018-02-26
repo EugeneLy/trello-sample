@@ -54,13 +54,11 @@ class Board extends Component {
 }
 
 const listTarget = {
-    drop(props, monitor, component) {
+    drop(props, monitor) {
         console.log('Column Drop Fired');
-        this.startPosition = '';
         const id = monitor.getItem().id;
         const boardId = props.board._id;
         const parentList = monitor.getItem().parentList;
-
 
         if (props.board.tasks.indexOf(id) === -1) {
             props.drop(id, boardId, parentList);
@@ -69,8 +67,11 @@ const listTarget = {
         if (monitor.getDropResult()) {
             props.swap(id, monitor.getDropResult().dropId, boardId, parentList)
         }
+    },
+    canDrop(props) {
+        return !!props.authenticated;
     }
-}
+};
 
 function collect(connect) {
     return {

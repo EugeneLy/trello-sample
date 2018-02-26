@@ -28,10 +28,6 @@ export default function boards(state = initialSatate, action) {
             return {collection: newColection};
 
         case SWAP_TASK:
-            console.log('swap in board');
-            console.log(action.payload);
-            console.log(state);
-
             let newCollection;
             const { dragId, dropId, parentList, newList } = action.payload;
             const { collection } = state;
