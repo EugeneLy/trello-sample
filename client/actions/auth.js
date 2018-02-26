@@ -36,13 +36,12 @@ export function errorHandler(dispatch, error, type) {
 }
 
 export function registerUser({ name, email, password }) {
-    console.log({ name, email, password });
     return function (dispatch) {
         axios.post(`${apiPrefix}/register`, { name, email, password })
             .then((response) => {
                 cookie.save('token', response.data.token, { path: '/' });
                 cookie.save('user', response.data.user, { path: '/' });
-                dispatch({ type: AUTH_USER });
+                dispatch({ type: AUTH_USER, payload: response.data.user  });
             })
             .catch((error) => {
                 errorHandler(dispatch, error.response, AUTH_ERROR);
@@ -54,7 +53,7 @@ export function loginUser({ email, password }) {
     return function(dispatch) {
         axios.post(`${apiPrefix}/signin`, { email, password })
             .then((response) => {
-                logoutUser();
+                /*logoutUser();*/
                 console.log(response.data.token);
                 cookie.save('token', response.data.token, { path: '/' });
                 cookie.save('user', response.data.user, { path: '/' });

@@ -7,7 +7,6 @@ export function getBoards() {
     return (dispatch) => {
             axios.get(`${apiPrefix}/boards`)
              .then(({ data }) => {
-                //this.props.onLoadBoards(data);
                 dispatch({type: LOAD_BOARDS_SUCCESS, payload: {boards: data}})
              }).catch(err =>
                 console.error(err)

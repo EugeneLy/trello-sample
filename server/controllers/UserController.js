@@ -11,7 +11,6 @@ let generateToken = (user) => {
 };
 
 let setUserInfo = (request) => {
-    //console.log(request);
     return {
         _id: request._id,
         name: request.name,
@@ -53,7 +52,10 @@ exports.register = (req, res, next) => {
         user.save((err, user) => {
             if (err) { return next(err); }
 
+
             let userInfo = setUserInfo(user);
+
+
 
             res.status(201).json({
                 token: 'JWT ' + generateToken(userInfo),
@@ -69,8 +71,6 @@ exports.signIn = (req, res) => {
     }, (err, user) => {
         if (err) throw err;
 
-        const userInfo = setUserInfo(user);
-
         if (!user) {
             res.status(401).send({ error: 'Authentication failed. User not found.' });
         } else {
@@ -79,6 +79,8 @@ exports.signIn = (req, res) => {
             } else if (!user.comparePassword(req.body.password)) {
                 res.status(401).send({ error: 'Authentication failed. Wrong password.' });
             } else {
+                const userInfo = setUserInfo(user);
+
                 return res.status(200).json({
                     token: `JWT ${generateToken(userInfo)}`,
                     user: userInfo

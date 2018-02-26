@@ -2,7 +2,7 @@ import {CHANGE_TASK_LIST,
         LOAD_BOARDS_SUCCESS,
         SWAP_TASK} from '../actions/types';
 
-const initialSatate = {collection: []}
+const initialSatate = {collection: []};
 
 export default function boards(state = initialSatate, action) {
     switch(action.type) {
@@ -45,10 +45,8 @@ export default function boards(state = initialSatate, action) {
                         board.tasks.splice(taskDrag, 1);
                         board.tasks.splice(taskDrop, 0, dragId);
 
-
                         return board;
                     }
-
                     return board;
                 })
             } else {
@@ -60,14 +58,11 @@ export default function boards(state = initialSatate, action) {
                         board.tasks.splice(taskDrag, 1);
                         board.tasks.splice(taskDrop, 0, dragId);
 
-
                         return board;
                     }
-
                     return board;
                 })
             }
-
             return {collection: newCollection};
     }
     return state;
